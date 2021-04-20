@@ -1,0 +1,101 @@
+basePath: /
+definitions:
+  models.User:
+    properties:
+      apellidoMaterno:
+        type: string
+      apellidoPaterno:
+        type: string
+      correo:
+        type: string
+      curp:
+        type: string
+      id:
+        type: string
+      nombre:
+        type: string
+      password:
+        type: string
+      rfc:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: soberkoder@swagger.io
+    name: API Support
+  description: Ejemplos de servicios necesarios para administrar la generacion de
+    PKI
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: PKI API
+  version: "1.0"
+paths:
+  /user:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user
+      parameters:
+      - description: Nombre
+        in: body
+        name: nombre
+        required: true
+        schema:
+          type: string
+      - description: Apellido Paterno
+        in: body
+        name: apellidopaterno
+        required: true
+        schema:
+          type: string
+      - description: Apellido Materno
+        in: body
+        name: apellidomaterno
+        required: true
+        schema:
+          type: string
+      - description: Correo
+        in: body
+        name: correo
+        required: true
+        schema:
+          type: string
+      - description: Contraseña
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      - description: CURP
+        in: body
+        name: curp
+        required: true
+        schema:
+          type: string
+      - description: RFC
+        in: body
+        name: rfc
+        required: true
+        schema:
+          type: string
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a new user
+      tags:
+      - users
+swagger: "2.0"
