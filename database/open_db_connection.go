@@ -21,7 +21,8 @@ var MongoConn = ConnDB()
 
 //Connect to database
 func ConnDB() *mongo.Client {
-	fmt.Println("MONGO_ATLAS_DATABASE: ", AtlasUser)
+	fmt.Println("MONGO_ATLAS_USER: ", AtlasUser)
+	fmt.Println("MONGO_ATLAS_DATABASE: ", AtlasDatabase)
 	uri := fmt.Sprintf("mongodb+srv://%s:%s@%s/%s%s", AtlasUser, AtlasPassword, AtlasHost, AtlasDatabase, AtlasOption)
 
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))

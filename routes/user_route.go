@@ -21,7 +21,7 @@ func CreateLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if len(t.Correo) == 0 {
-		http.Error(w, "El correo electrónico del usuario es requerido ", 400)
+		http.Error(w, "El correo electrónico del usuario es requerido "+err.Error(), 400)
 		return
 	}
 
@@ -79,30 +79,29 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Datos incorrectos"+err.Error(), 400)
 		return
 	}
-
 	if len(t.Correo) == 0 {
-		http.Error(w, "La cuenta de correo es requerida"+err.Error(), 400)
+		http.Error(w, "La cuenta de correo es requerida", 400)
 		return
 	}
 	if len(t.Password) < 8 {
-		http.Error(w, "La longitud de la contraseña debe ser al menos de ocho caracteres"+err.Error(), 400)
+		http.Error(w, "La longitud de la contraseña debe ser al menos de ocho caracteres", 400)
 		return
 	}
 
-	_, ok, _ := database.TestUserExists(t.Correo)
-	if ok {
+	_, exists, _ := database.TestUserExists(t.Correo)
+	if exists {
 		//http.Error(w, "La cuenta de correo ya existe"+err.Error(), 400)
 		http.Error(w, "La cuenta de correo ya existe", 400)
 		return
 	}
 
-	_, ok, err = database.InsertUser(t)
+	_, ok, err := database.InsertUser(t)
 	if err != nil {
 		http.Error(w, "Error al insertar el registro"+err.Error(), 400)
 		return
 	}
-	if ok {
-		http.Error(w, "Error al registrar el usuario"+err.Error(), 400)
+	if !(ok) {
+		http.Error(w, "Error al registrar el usuario", 400)
 		return
 	}
 
@@ -134,7 +133,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("context-type", "application/json")
-	w.WriteHeader(http.StatusCreated)
+	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(t)
 }
 

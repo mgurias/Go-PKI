@@ -11,8 +11,8 @@ import (
 
 /*TryLogin verifica si existe el correo en la BD */
 func TryLogin(correo string, password string) (models.User, bool) {
-	user, ok, _ := TestUserExists(correo)
-	if !(ok) {
+	user, exists, _ := TestUserExists(correo)
+	if !(exists) {
 		return user, false
 	}
 

@@ -22,14 +22,12 @@ func TestUserExists(correo string) (models.User, bool, string) {
 	var result models.User
 
 	err := col.FindOne(ctx, condition).Decode(&result)
-	ID := result.ID.Hex()
-
-	result.Password = ""
-
 	if err != nil {
-		return result, false, ID
+		return result, false, ""
 	}
 
+	ID := result.ID.Hex()
+	result.Password = ""
 	return result, true, ID
 }
 

@@ -32,12 +32,12 @@ func ProcessToken(tk string) (*models.Claim, bool, string, error) {
 		return key, nil
 	})
 	if err == nil {
-		_, ok, _ := database.TestUserExists(claims.Correo)
-		if ok {
+		_, exists, _ := database.TestUserExists(claims.Correo)
+		if exists {
 			Correo = claims.Correo
 			IDUsuario = claims.ID.Hex()
 		}
-		return claims, ok, IDUsuario, nil
+		return claims, true, IDUsuario, nil
 	}
 	if !token.Valid {
 		return claims, false, string(""), errors.New("token Inválido")
