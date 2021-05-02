@@ -21,7 +21,11 @@ func MongoMigrations() error {
 		Description: "add user-collection",
 		Up: func(db *mongo.Database) error {
 
-			pass, err := EncryptPassword("P@sswordTemporal")
+			pass, err := EncryptPassword("PasswordTempor@l")
+			if err != nil {
+				return err
+			}
+
 			if err != nil {
 				return err
 			}
@@ -49,11 +53,6 @@ func MongoMigrations() error {
 				return err
 			}
 
-			pass, err = EncryptPassword("PasswordTempor@l")
-			if err != nil {
-				return err
-			}
-
 			_, err = db.Collection("user").InsertOne(ctx, bson.D{
 				{Key: "nombre", Value: "Humberto"},
 				{Key: "apellidopaterno", Value: "Miranda"},
@@ -62,6 +61,21 @@ func MongoMigrations() error {
 				{Key: "password", Value: pass},
 				{Key: "curp", Value: "MIPH991213MSLRSD02"},
 				{Key: "rfc", Value: "MIPH991213MSL"},
+				//{Key: "tags", Value: bson.A{"development", "programming", "coding"}},
+			})
+
+			if err != nil {
+				return err
+			}
+
+			_, err = db.Collection("user").InsertOne(ctx, bson.D{
+				{Key: "nombre", Value: "Temas"},
+				{Key: "apellidopaterno", Value: "Selectos"},
+				{Key: "apellidomaterno", Value: ""},
+				{Key: "correo", Value: "temas.selectos@gmail.com"},
+				{Key: "password", Value: pass},
+				{Key: "curp", Value: "TESE211213MSLRSD02"},
+				{Key: "rfc", Value: "TESE211213MSL"},
 				//{Key: "tags", Value: bson.A{"development", "programming", "coding"}},
 			})
 

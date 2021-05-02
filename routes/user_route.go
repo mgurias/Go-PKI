@@ -9,7 +9,15 @@ import (
 	"Go-PKI/models"
 )
 
-/*CreateLogin para validar el acceso al usuario*/
+// CreateLogin godoc
+// @Summary Create a new login to database
+// @Description Create a new login
+// @Tags Login
+// @Accept json
+// @Produce json
+// @Param Login body string true "User/Password"
+// @Success 200 {object} models.User
+// @Router /Login [post]
 func CreateLogin(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("content-type", "application/json")
 
@@ -21,12 +29,12 @@ func CreateLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if len(t.Correo) == 0 {
-		http.Error(w, "El correo electrónico del usuario es requerido "+err.Error(), 400)
+		http.Error(w, "El correo electrónico del usuario es requerido ", 400)
 		return
 	}
 
 	document, ok := database.TryLogin(t.Correo, t.Password)
-	if !(ok) {
+	if ok {
 		http.Error(w, "Usuario y/o contraseña inválidos ", 400)
 		return
 	}
@@ -57,20 +65,13 @@ func CreateLogin(w http.ResponseWriter, r *http.Request) {
 // CreateUser godoc
 // @Summary Create a new user
 // @Description Create a new user
-// @Tags users
+// @Tags Users
 // @Accept json
 // @Produce json
-// @Param id path string true "ID"
-// @Param nombre body string true "Nombre"
-// @Param apellidopaterno body string true "Apellido Paterno"
-// @Param apellidomaterno body string true "Apellido Materno"
-// @Param correo body string true "Correo"
-// @Param password body string true "Contraseña"
-// @Param curp body string true "CURP"
-// @Param rfc body string true "RFC"
+// @Param user body models.User true "Datos de usuario"
 // @Success 200 {object} models.User
 // @Security ApiKeyAuth
-// @Router /user [post]
+// @Router /CreateUser [post]
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	var t models.User
 
@@ -90,7 +91,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	_, exists, _ := database.TestUserExists(t.Correo)
 	if exists {
-		//http.Error(w, "La cuenta de correo ya existe"+err.Error(), 400)
 		http.Error(w, "La cuenta de correo ya existe", 400)
 		return
 	}
@@ -112,13 +112,13 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 // GetUser godoc
 // @Summary Get data user
 // @Description Select data user from DB
-// @Tags users
+// @Tags Users
 // @Accept json
 // @Produce json
-// @Param id path string true "ID"
+// @Param id query string true "ID"
 // @Success 200 {object} models.User
 // @Security ApiKeyAuth
-// @Router /user [get]
+// @Router /GetUser [get]
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	ID := r.URL.Query().Get("id")
 	if len(ID) < 1 {
@@ -128,7 +128,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 	t, err := database.SelectUser(ID)
 	if err != nil {
-		http.Error(w, "Ocurrió un error al consultar el ID del ususario "+err.Error(), 400)
+		http.Error(w, "Ocurrió un error al consultar el ID del usuario "+err.Error(), 400)
 		return
 	}
 
@@ -140,18 +140,13 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 // modifyUser godoc
 // @Summary Modify user data
 // @Description Modify user data from DB
-// @Tags users
+// @Tags Users
 // @Accept json
 // @Produce json
-// @Param id path string true "ID"
-// @Param nombre body string true "Nombre"
-// @Param apellidopaterno body string true "Apellido Paterno"
-// @Param apellidomaterno body string true "Apellido Materno"
-// @Param curp body string true "CURP"
-// @Param rfc body string true "RFC"
+// @Param user body models.User true "Datos de Usuario"
 // @Success 200 {object} models.User
 // @Security ApiKeyAuth
-// @Router /user [post]
+// @Router /ModifyUser [post]
 func ModifyUser(w http.ResponseWriter, r *http.Request) {
 	var t models.User
 
@@ -187,13 +182,13 @@ func ModifyUser(w http.ResponseWriter, r *http.Request) {
 // DropUser godoc
 // @Summary Delete data user
 // @Description Delete data user from DB
-// @Tags users
+// @Tags Users
 // @Accept json
 // @Produce json
 // @Param id path string true "ID"
 // @Success 200 {object} models.User
 // @Security ApiKeyAuth
-// @Router /user [delete]
+// @Router /DropUser [delete]
 func DropUser(w http.ResponseWriter, r *http.Request) {
 	ID := r.URL.Query().Get("id")
 	if len(ID) < 1 {

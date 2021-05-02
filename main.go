@@ -8,15 +8,17 @@ import (
 	_ "Go-PKI/docs"
 )
 
-// @title PKI API
+// @title API
 // @version 1.0
-// @description Ejemplos de servicios necesarios para administrar la generacion de PKI
+// @description This is an auto-generated API Docs.
 // @termsOfService http://swagger.io/terms/
 // @contact.name API Support
-// @contact.email soberkoder@swagger.io
+// @contact.email your@mail.com
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
-// @host localhost:8080
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 // @BasePath /
 func main() {
 

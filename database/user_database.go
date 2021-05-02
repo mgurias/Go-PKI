@@ -72,10 +72,11 @@ func SelectUser(ID string) (models.User, error) {
 	}
 
 	err := col.FindOne(ctx, condition).Decode(&t)
-	t.Password = ""
 	if err != nil {
 		return t, err
 	}
+
+	t.Password = ""
 	return t, nil
 }
 
