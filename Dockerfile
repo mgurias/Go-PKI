@@ -35,7 +35,7 @@ COPY --from=builder ["/build/apiserver", "/build/.env", "/"]
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 # Determinar el puerto de publicación
-EXPOSE 5000
+EXPOSE 8080
 
 # Definir el comando a ejecutar cada vez que se inicie el contenedor
 ENTRYPOINT ["/apiserver"]
