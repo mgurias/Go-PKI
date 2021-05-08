@@ -5,12 +5,11 @@ FROM golang:1.16-alpine AS builder
 # single file under /etc/ssl/certs/ca-certificates.crt (update-ca-certificates)
 # I also add git so that we can download with `go mod download` and
 # tzdata to configure timezone in final image
-#RUN apk --update add --no-cache ca-certificates openssl git tzdata && update-ca-certificates
-
 RUN apk update \
 && apk upgrade \
-&& apk add --no-cache ca-certificates \
-&& update-ca-certificates 2>/dev/null || true
+&& apk add --no-cache bash ca-certificates openssl git tzdata shadow \
+&& update-ca-certificates \
+&& chsh -s /bin/bash 2>/dev/null || true
 
 # Ubicarse en el directorio /build.
 WORKDIR /build
