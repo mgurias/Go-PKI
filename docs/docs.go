@@ -94,7 +94,7 @@ var doc = `{
                         "type": "string",
                         "description": "ID",
                         "name": "id",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -198,6 +198,13 @@ var doc = `{
                 ],
                 "summary": "Modify user data",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
                     {
                         "description": "Datos de Usuario",
                         "name": "user",

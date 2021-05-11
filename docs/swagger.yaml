@@ -62,7 +62,7 @@ paths:
       description: Delete data user from DB
       parameters:
       - description: ID
-        in: path
+        in: query
         name: id
         required: true
         type: string
@@ -129,6 +129,11 @@ paths:
       - application/json
       description: Modify user data from DB
       parameters:
+      - description: ID
+        in: query
+        name: id
+        required: true
+        type: string
       - description: Datos de Usuario
         in: body
         name: user

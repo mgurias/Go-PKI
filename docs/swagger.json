@@ -78,7 +78,7 @@
                         "type": "string",
                         "description": "ID",
                         "name": "id",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -182,6 +182,13 @@
                 ],
                 "summary": "Modify user data",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
                     {
                         "description": "Datos de Usuario",
                         "name": "user",

@@ -143,6 +143,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 // @Tags Users
 // @Accept json
 // @Produce json
+// @Param id query string true "ID"
 // @Param user body models.User true "Datos de Usuario"
 // @Success 200 {object} models.User
 // @Security ApiKeyAuth
@@ -185,7 +186,7 @@ func ModifyUser(w http.ResponseWriter, r *http.Request) {
 // @Tags Users
 // @Accept json
 // @Produce json
-// @Param id path string true "ID"
+// @Param id query string true "ID"
 // @Success 200 {object} models.User
 // @Security ApiKeyAuth
 // @Router /DropUser [delete]

@@ -21,7 +21,7 @@ func Handlers() {
 	router.HandleFunc("/Login", middlewares.TestDB(routes.CreateLogin)).Methods("POST")
 	router.HandleFunc("/CreateUser", middlewares.TestDB(routes.CreateUser)).Methods("POST")
 	router.HandleFunc("/GetUser", middlewares.TestDB(routes.GetUser)).Methods("GET")
-	router.HandleFunc("/ModifyUser", middlewares.TestDB(routes.ModifyUser)).Methods("PUT")
+	router.HandleFunc("/ModifyUser", middlewares.TestDB(routes.ModifyUser)).Methods("POST")
 	router.HandleFunc("/DropUser", middlewares.TestDB(routes.DropUser)).Methods("DELETE")
 	//router.HandleFunc("/GetUsers", middlewares.TestDB(routes.GetUsers)).Methods("GET")
 

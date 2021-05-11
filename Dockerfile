@@ -7,7 +7,7 @@ FROM golang:1.16-alpine AS builder
 # tzdata to configure timezone in final image
 RUN apk update \
 && apk upgrade \
-&& apk add --no-cache bash ca-certificates openssl git tzdata shadow \
+&& apk add --no-cache bash ca-certificates openssl shadow \
 && update-ca-certificates \
 && chsh -s /bin/bash 2>/dev/null || true
 
