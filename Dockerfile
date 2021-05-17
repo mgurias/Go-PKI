@@ -6,10 +6,19 @@ FROM golang:1.16-alpine AS builder
 # I also add git so that we can download with `go mod download` and
 # tzdata to configure timezone in final image
 RUN apk update \
-&& apk upgrade \
-&& apk add --no-cache bash ca-certificates openssl shadow \
-&& update-ca-certificates \
-&& chsh -s /bin/bash 2>/dev/null || true
+    && apk upgrade \
+    && apk add --no-cache ca-certificates openssl shadow \
+    && update-ca-certificates 2>/dev/null || true
+
+RUN adduser -D admin 
+
+RUN apk add sudo openssh 
+#&& rc-update  \ 
+#add sshd \
+#&& rc-status \
+#&& /etc/init.d/sshd start
+
+#RUN ssh-keygen -A 
 
 # Ubicarse en el directorio /build.
 WORKDIR /build
@@ -26,6 +35,7 @@ ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 RUN go build -ldflags="-s -w" -o apiserver .
 
 FROM scratch
+#FROM alpine
 
 # Copiar del directorio /build el archivo compilado y el archivo .env de configuración
 COPY --from=builder ["/build/apiserver", "/build/.env", "/"]
