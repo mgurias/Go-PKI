@@ -34,8 +34,8 @@ COPY . .
 ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 RUN go build -ldflags="-s -w" -o apiserver .
 
-FROM scratch
-#FROM alpine
+#FROM scratch
+FROM alpine
 
 # Copiar del directorio /build el archivo compilado y el archivo .env de configuración
 COPY --from=builder ["/build/apiserver", "/build/.env", "/"]
